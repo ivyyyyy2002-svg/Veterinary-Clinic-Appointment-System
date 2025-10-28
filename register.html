@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h1>New Client Registration</h1>
+    <form action="/register" method="post">
+        <h2>Client Information</h2><br>
+
+        <label for="name">Full Name*</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="address">Address*</label><br>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="city">City*</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="province">Province*</label><br>
+        <input type="text" id="province" name="province" required><br><br>
+
+        <label for="email">Email Address*</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number*</label><br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <!-- <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br> -->
+
+        <h2>Pet Information</h2><br>
+        <label for="pet_name">Pet's Name*</label><br>
+        <input type="text" id="pet_name" name="pet_name" required><br><br>
+
+        <label for="pet_type">Species*</label><br>
+        <input type="text" id="pet_type" name="pet_type" required><br><br>
+
+        <label for="pet_breed">Breed (If Knwon)</label><br>
+        <input type="text" id="pet_breed" name="pet_breed"><br><br>
+
+        <label for="pet_color">Color*</label><br>
+        <input type="text" id="pet_color" name="pet_color" required><br><br>
+
+        <label for="pet_age">Age*</label><br>
+        <input type="number" id="pet_age" name="pet_age" required><br><br>
+
+        <label for="sex">Sex</label>
+        <select id="sex" name="sex" required>
+            <option value="" disabled selected>Please Select</option>
+            <option value="female">Female</option>
+            <option value="female_spayed">Female Spayed</option>
+            <option value="male">Male</option>
+            <option value="male_neutered">Male Neutered</option>
+        </select><br><br>
+
+         <label for="allergy">Known Allergies*</label><br>
+        <input type="text" id="allergy" name="allergy" required><br><br>
+
+        <input type="submit">
+    </form>
+</body>
