@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>appointment</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    
+    <!-- appointment form -->
+    <!-- only login clients can book appointments -->
+    <div class="content">
+        <div class="appointment-form" id="appointment_form">
+            <form action="">
+                <div class="form-container">
+                    <label for="petinfo">Pet Information</label>
+                    <input placeholder="Enter your pet name" oninput="this.className = ''">
+                    <input placeholder="Enter your pet age"  oninput="this.className = ''">
+                </div>
+
+                <div class="form-container">
+                    <label for="appointment_type">Appointment Type</label>
+                    <select oninput="this.className = ''">
+                        <option value="" disabled selected>Please Select</option>
+                        <option value="illness_exam">Illness Exam</option></option>
+                        <option value="healthy_pet_exam">Healthy Pet Exam</option></option>
+                </div>    
+
+                <div class="form-container">Contact
+                    <input placeholder="Enter your email adress" oninput="this.className = ''">
+                </div>
+
+            </form>
+        </div>
+    </div>
 </body>
 </html>

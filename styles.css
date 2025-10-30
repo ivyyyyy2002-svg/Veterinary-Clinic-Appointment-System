@@ -331,16 +331,35 @@ footer {
     max-width: 700px;
     margin: auto;
     padding: 30px;
+    text-align: center;
 }
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 50%;
+    width: 30%;
     padding: 10px;
     margin: 8px 0 16px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+.login-form input[type="submit"] {
+    background-color: #7b4f2c; 
+    color: #fffaf4;
+    padding: 15px 20px;
+    margin: 30px auto;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    max-width: 100%;
+    width: 200px;
+    display: block;
+}
+
+.login-form input[type="submit"]:hover {
+    background-color: #5c3a22; 
 }
 
 /*--------------------------------------------*/
