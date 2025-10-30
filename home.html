@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinary Clinic Appointment System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -7,21 +9,29 @@
 <body>
     <!--Top Page-->
     <div class="top-content">
-        <div class="logo">
-            <img src="logo.png" alt="Pet Hospital Logo" height="80">
-        </div>
         <ul>
             <li><a href="login.html">Login</a></li>
             <li><a href="appointment.html">Book an Appointment</a></li>
         </ul>
     </div>
 
+    <!-- logo -->
+    <div class="logo">
+        <a href="home.html">
+            <img src="logo.png" alt="Pet Hospital Logo">
+        </a>
+    </div>
+
     <!-- Navigation bar -->
     <div class="navbar">
         <ul>
             <li><a href="home.html">Home</a></li>
-            <li><a href="appointments.html">Appointments</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="team.html">About us</a></li>
+
+            <div class="search-bar">
+                <li><input type="text" placeholder="Search.."></li>
+            </div>
         </ul>
     </div>
 
@@ -53,7 +63,14 @@
                 <h3>Surgical Procedures</h3>
                 <p>Advanced surgical care performed by our skilled veterinarians.</p>
             </div>
+            <div class="service-box">
+                <h3>Dental Care</h3>
+                <p>Comprehensive dental services to maintain your pet's oral health.</p>    
+            </div>
         </div>
-        
     </div>
+    
+    <footer>
+        <p>&copy; 2026 UWO Pet Hospital. All rights reserved.</p>
+    </footer>
 </body>
