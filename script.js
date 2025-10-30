@@ -79,3 +79,4 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     }
     
 }); 
+

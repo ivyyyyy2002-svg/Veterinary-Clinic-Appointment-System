@@ -42,113 +42,134 @@
             <h1>New Client Registration Form</h1>
             <p>Please fill out the form below to register as a new client and provide information about your pet. If you have any questions, feel free to contact us at (123) 456-7890 or email.</p>
 
-            <form id ="registrationForm">
-                <h2>Client Information</h2><br>
+            <!-- Client Information Form -->
+            <form id="clientForm">
+                <div id="clientSection">
+                    <h2>Client Information</h2>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name*</label>
-                        <input type="text" id="name" name="name" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name*</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address*</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="address">Address*</label>
-                        <input type="text" id="address" name="address" required>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number*</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Password*</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Confirm Password*</label>
+                            <input type="password" id="confirm_password" name="confirm_password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City*</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province*</label>
+                            <input type="text" id="province" name="province" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postalcode">Postal Code*</label>
+                            <input type="text" id="postalcode" name="postalcode" required>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Create Account and Add Pet"></input>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email Address*</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number*</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="password">Password*</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Confirm Password*</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="city">City*</label>
-                        <input type="text" id="city" name="city" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="province">Province*</label>
-                        <input type="text" id="province" name="province" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="postalcode">Postal Code*</label>
-                        <input type="text" id="postalcode" name="postalcode" required>
-                    </div>
-                </div>
-
-                <h2>Pet Information</h2><br>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="pet_name">Pet's Name*</label>
-                        <input type="text" id="pet_name" name="pet_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pet_type">Species*</label>
-                        <input type="text" id="pet_type" name="pet_type" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="pet_breed">Breed (If Known)</label>
-                        <input type="text" id="pet_breed" name="pet_breed">
-                    </div>
-                    <div class="form-group">
-                        <label for="pet_color">Color*</label>
-                        <input type="text" id="pet_color" name="pet_color" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="pet_age">Age*</label>
-                        <input type="number" id="pet_age" name="pet_age" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pet_sex">Sex</label>
-                        <select id="pet_sex" name="pet_sex" required>
-                            <option value="" disabled selected>Please Select</option>
-                            <option value="female">Female</option>
-                            <option value="female_spayed">Female Spayed</option>
-                            <option value="male">Male</option>
-                            <option value="male_neutered">Male Neutered</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <label for="pet_allergy">Known Allergies*</label>
-                        <input type="text" id="pet_allergy" name="pet_allergy" required>
-                    </div>
-                </div>
-
-                <input type="submit">
-                <output id="registrationResult"></output>
             </form>
+
+            <!-- Success Message and Pet Form (Initially Hidden) -->
+            <div id="petSection" style="display: none;">
+                    <p>Account Created Successfully!</p>
+                    <p>Now please provide information about your pet.</p>
+                
+
+                <form id="petForm">
+                    <h2>Pet Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet_name">Pet's Name*</label>
+                            <input type="text" id="pet_name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pet_type">Species*</label>
+                            <select id="pet_type" name="pet_type" required>
+                                <option value="" disabled selected>Please Select</option>
+                                <option value="cat">Cat</option>
+                                <option value="dog">Dog</option>
+                                <option value="bird">Bird</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="reptile">Reptile</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet_breed">Breed (If Known)</label>
+                            <input type="text" id="pet_breed" name="breed">
+                        </div>
+                        <div class="form-group">
+                            <label for="pet_color">Color*</label>
+                            <input type="text" id="pet_color" name="color" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet_age">Age (If Known)</label>
+                            <input type="number" id="pet_age" name="age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pet_sex">Sex</label>
+                            <select id="pet_sex" name="gender" required>
+                                <option value="" disabled selected>Please Select</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet_allergy">Known Allergies*</label>
+                            <input type="text" id="pet_allergy" name="allergies" required>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="owner_id" name="owner_id">
+                    <input type="submit" value="Add Pet and Complete Registration"></input>
+                </form>
+            </div>
         </div>
     </div>
+
 
     <footer>
         <p>&copy; 2026 UWO Pet Hospital. All rights reserved.</p>

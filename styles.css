@@ -334,6 +334,13 @@ footer {
     text-align: center;
 }
 
+.login-form label {
+    font-weight: bold;
+    color: #4a3f35; 
+    text-align: center;
+    margin:auto;
+}
+
 .login-form input[type="text"],
 .login-form input[type="password"] {
     width: 30%;
@@ -342,6 +349,7 @@ footer {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    font-size: 1em;
 }
 
 .login-form input[type="submit"] {
@@ -409,7 +417,7 @@ footer {
     cursor: pointer;
     font-size: 1em;
     max-width: 100%;
-    width: 200px;
+    width: 300px;
     display: block;
 }
 
@@ -425,7 +433,7 @@ footer {
 
 .form-row {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 15px;
 }
 
@@ -436,3 +444,133 @@ footer {
 }
 
 /*--------------------------------------------*/
+/*client-dashboard styles*/
+.navbar-dashboard {
+    background-color: #5c3a22; 
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 60px;
+    padding-top: 10px;
+}
+
+.navbar-dashboard ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+}
+
+.navbar-dashboard ul li {
+    flex: 1;
+}
+
+.navbar-dashboard ul li a {
+    display: block;
+    color: #f3e5d3; 
+    text-align: center;
+    padding: 16px; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-dashboard ul li a:hover {
+    background-color: #7b4f2c; 
+    color: #fffaf4; 
+}
+
+/*--------------------------------------------*/
+/* pet page styles */
+.title-pet {
+    text-align: left;
+    padding: 40px 60px;
+    color: #fff8f0;
+    background-color: #d4a373; 
+}
+
+.title-pet h1 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.pet-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.myPet button {
+    background-color: #7b4f2c;
+    color: #fffaf4;
+    border: none;
+    padding: 10px 12px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 1000px;
+}
+
+.myPet button:hover {
+    background-color: #5c3a22;
+}
+
+.myPet h2 {
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+/*--------------------------------------------*/
+/* pet display section styles */
+.pet-card {
+    background-color: #fffdf9;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 15px auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 4px solid #d4a373;
+    transition: 0.3s;
+    width: 40%;
+    margin: 15px 10px;
+}
+
+.pet-card h3{
+    margin-top: 10px;
+    position: relative; 
+    padding-bottom: 10px; 
+    border-bottom: #ccc 2px solid;
+    border-radius: 5px;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.pet-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding:15px auto;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #7b4f2c;
+}
+
+.info-value {
+    color: #4a3f35;
+    margin-left: 20px;
+}

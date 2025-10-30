@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user_dashboard</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <div class="navbar-dashboard">
+        <ul>
+            <li><a href="client_dashboard.html">Overview</a></li>
+            <li><a href="client_profile.html">Profile</a></li>
+            <li><a href="appointment.html">Appointment</a></li>
+            <li><a href="login.html">Sign Out</a></li>
+        </ul>
+    </div>
+
+    <div class="title-pet">
+        <h1>Welcome, User</h1>
+    </div>
+        <div class="content">
+            <div class="myPet">
+                <h2>My Pets</h2>
+                <button class="add-pet">Add a Pet</button>
+                <div class="pet-container" id="petContainer">
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+
+
+<script>
+// only for test!!!!!!! only for test!!!!!!!
+const petsData = [
+    {
+        name: "Buddy",
+        species: "Dog",
+        breed: "Golden Retriever",
+        color: "Golden",
+        age: 3,
+        gender: "Male",
+        allergies: "None"
+    },
+    {
+        name: "Luna",
+        species: "Cat",
+        breed: "British Short Hair",
+        color: "Yellow and black",
+        age: 2,
+        gender: "Female",
+        allergies: "None"
+    },
+    {
+        name: "Hanhan",
+        species: "Cat",
+        breed: "Garfiled",
+        color: "Orange",
+        age: 5,
+        gender: "Male",
+        allergies: "None"
+    }
+];
+
+function displayPets() {
+    const petContainer = document.getElementById('petContainer');
+    
+    if (petsData.length === 0) {
+        petContainer.innerHTML = '<p>No pets registered yet.</p>';
+        return;
+    }
+    
+    petsData.forEach(pet => {
+        const petCard = document.createElement('div');
+        petCard.className = 'pet-card';
+        
+        petCard.innerHTML = `
+            <h3>${pet.name}</h3>
+            <div class="pet-info">
+                <div class="info-item">
+                    <span class="info-label">Species:</span>
+                    <span class="info-value">${pet.species}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Breed:</span>
+                    <span class="info-value">${pet.breed}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Color:</span>
+                    <span class="info-value">${pet.color}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Age:</span>
+                    <span class="info-value">${pet.age} years</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Gender:</span>
+                    <span class="info-value">${pet.gender}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Allergies:</span>
+                    <span class="info-value">${pet.allergies}</span>
+                </div>
+            </div>
+        `;
+        
+        petContainer.appendChild(petCard);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', displayPets);
+</script>
