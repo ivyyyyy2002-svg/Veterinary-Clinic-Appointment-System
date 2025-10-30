@@ -20,8 +20,8 @@ function textValidate (text, maxLen, label='Text') {
     return {value: value, errors: errors};
 }
 
-// Register
-document.getElementById('registrationForm').addEventListener('submit', async (event) => {
+// Register User
+document.getElementById('clientForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const outputMsg = document.getElementById('registrationResult');
     outputMsg.textContent = ''; 
@@ -29,21 +29,13 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         // Owner info
         const userName = document.getElementById('name').value;
         const address = document.getElementById('address').value; 
-        const city = document.getElementById('city').value;
-        const province = document.getElementById('province').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
-        // Pet info
-        const petName = document.getElementById('pet_name').value;
-        const petType = document.getElementById('pet_type').value;
-        const petBreed = document.getElementById('pet_breed').value;
-        const petColor = document.getElementById('pet_color').value;
-        const petAge = document.getElementById('pet_age').value;
-        const petSex = document.getElementById('pet_sex').value;
-        const petAllergy = document.getElementById('pet_allergy').value;
+        const city = document.getElementById('city').value;
+        const province = document.getElementById('province').value;
+        
         // Validate inputs 
         // Assume max lengths for user name 100, address 200, city 100, province 100, email 100, phone 20
-        // Pet name 100, type 50, breed 100, color 50, age 0-100, allergy 200
         const userNameVal = textValidate(userName, 100, 'Name');
         const addressVal = textValidate(address, 200, 'Address');
         const cityVal = textValidate(city, 100, 'City');
@@ -55,6 +47,39 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             outputMsg.textContent = 'Registration failed: ' + allErrors.join('; ');
             return; 
         }
+        // Create a user info
+        const userInfo = {
+            full_name: userNameVal.value,
+            phone: phoneVal.value,
+            email: emailVal.value,
+            address: addressVal.value,
+            city: cityVal.value,
+            province: provinceVal.value,
+        };
+
+    
+    }catch(error){
+        outputMsg.textContent = 'Registration failed: ' + error.message;
+    }
+    
+}); 
+
+// Register Pet
+document.getElementById('petForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const outputMsg = document.getElementById('regisUserResult');
+    outputMsg.textContent = '';
+    try{
+        // Pet info
+        const petName = document.getElementById('pet_name').value;
+        const petType = document.getElementById('pet_type').value;
+        const petBreed = document.getElementById('pet_breed').value;
+        const petColor = document.getElementById('pet_color').value;
+        const petAge = document.getElementById('pet_age').value;
+        const petSex = document.getElementById('pet_sex').value;
+        const petAllergy = document.getElementById('pet_allergy').value;
+        // Validate inputs
+        // Assume Pet name 100, type 50, breed 100, color 50, age 0-100, allergy 200
         const petNameVal = textValidate(petName, 100, 'Pet Name');
         const petTypeVal = textValidate(petType, 50, 'Pet Type');
         const petBreedVal = textValidate(petBreed, 100, 'Pet Breed');
@@ -66,17 +91,11 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             outputMsg.textContent = 'Registration failed: ' + allErrors.join('; ');
             return; 
         }
-        // Create a user info
-        const userInfo = {
-            full_name: userNameVal.value,
-            address: addressVal.value,
-            city: cityVal.value,
-        };
 
-    
     }catch(error){
-        outputMsg.textContent = 'Registration failed: ' + error.message;
-    }
-    
-}); 
+        outputMsg.textContent = 'Pet Registration failed: ' + error.message;
+    }   
+
+});
+
 
