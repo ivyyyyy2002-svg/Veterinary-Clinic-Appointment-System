@@ -69,8 +69,11 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         // Create a user info
         const userInfo = {
             full_name: userNameVal.value,
+            phone: phoneVal.value,
+            email: emailVal.value,
             address: addressVal.value,
             city: cityVal.value,
+            province: provinceVal.value,
         };
 
     
