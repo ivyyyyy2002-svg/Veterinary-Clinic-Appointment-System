@@ -1,3 +1,4 @@
+//The client login page HTML code
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,16 +36,18 @@
         </ul>
     </div>
 
-    <div class="login-form">
-    <h1>Login</h1>
-        <p>please use your registered email and password to log in:</p>
-        <form action="/login" method="post">
-            <label for="username">Log in with your email:</label><br>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Enter password:</label><br>
-            <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Log In">
-        </form>
+    <div class="content">
+        <div class="login-form">
+        <h1>Login</h1>
+            <p>please use your registered email and password to log in:</p>
+            <form action="/login" method="post">
+                <label for="username">Log in with your email:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="password">Enter password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Log In">
+            </form>
+        </div>
     </div>
 
 </body>
