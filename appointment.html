@@ -7,29 +7,89 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <!-- appointment form -->
-    <!-- only login clients can book appointments -->
+    <!-- appointment form (multi-step) -->
     <div class="content">
         <div class="appointment-form" id="appointment_form">
-            <form action="">
-                <div class="form-container">
-                    <label for="petinfo">Pet Information</label>
-                    <input placeholder="Enter your pet name" oninput="this.className = ''">
-                    <input placeholder="Enter your pet age"  oninput="this.className = ''">
+            <h2>Book an Appointment</h2>
+
+            <form id="multiStepForm" novalidate>
+            <!-- STEP 1 choose pets and service type -->
+            <fieldset class="step active" data-step="1">
+                <legend>Step 1 — Pet & Service</legend>
+
+                <label for="petSelect">Select your pet</label>
+                <select id="petSelect" name="pet" required>
+                <!-- this is only for testing -->
+                <option value="">-- Choose a pet --</option>
+                <option value="fluffy">Fluffy (Cat)</option>
+                <option value="buddy">Buddy (Dog)</option>
+                <option value="tweety">Tweety (Parrot)</option>
+                </select>
+
+                <label for="serviceSelect">Service</label>
+                <select id="serviceSelect" name="service" required>
+                <option value="">-- Choose a service --</option>
+                <option value="wellness">General Check-up</option>
+                <option value="vaccination">Vaccination</option>
+                <option value="illness">Illness Consultation</option>
+                <option value="surgery">Surgery</option>
+                <option value="dental">Dental Care</option>
+                </select>
+
+                <div class="step-actions">
+                <button type="button" class="btn btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <!-- STEP 2 choose doctor and apoointment date -->
+            <fieldset class="step" data-step="2">
+                <legend>Step 2 — Vet, Date & Time</legend>
+
+                <label for="vetSelect">Select veterinarian</label>
+                <select id="vetSelect" name="vet" required>
+                <option value="">-- Choose a veterinarian --</option>
+                <option value="dr_ivy">Dr. Ivy Li</option>
+                <option value="dr_ziqi">Dr. Ziqi Liu</option>
+                <option value="dr_guest">Dr. Guest</option>
+                </select>
+
+                <label for="dateInput">Appointment date</label>
+                <input id="dateInput" name="date" type="date" required>
+
+                <label for="timeSelect">Time slot</label>
+                <select id="timeSelect" name="time" required>
+                <option value="">-- Choose a time --</option>
+                
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                </select>
+
+                <div class="step-actions">
+                <button type="button" class="btn btn-prev">Previous</button>
+                <button type="button" class="btn btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <!-- STEP 3 -->
+            <fieldset class="step" data-step="3">
+                <legend>Step 3 — Additional notes & Submit</legend>
+
+                <label for="notes">Additional notes (medical history, restrictions, etc.)</label>
+                <textarea id="notes" name="notes" rows="5" placeholder="Anything hospital should know..."></textarea>
+
+                <div class="summary" id="appointmentSummary">
+                <!-- JS will render a summary here before submit -->
                 </div>
 
-                <div class="form-container">
-                    <label for="appointment_type">Appointment Type</label>
-                    <select oninput="this.className = ''">
-                        <option value="" disabled selected>Please Select</option>
-                        <option value="illness_exam">Illness Exam</option></option>
-                        <option value="healthy_pet_exam">Healthy Pet Exam</option></option>
-                </div>    
-
-                <div class="form-container">Contact
-                    <input placeholder="Enter your email adress" oninput="this.className = ''">
+                <div class="step-actions">
+                <button type="button" class="btn btn-prev">Previous</button>
+                <button type="submit" class="btn btn-submit">Submit Appointment</button>
                 </div>
-
+            </fieldset>
             </form>
         </div>
     </div>

@@ -574,3 +574,98 @@ footer {
     color: #4a3f35;
     margin-left: 20px;
 }
+
+/*---------------------------------------------*/
+/* appointment section styles */
+/* Multi-step form styles */
+.appointment-form {
+  max-width: 880px;
+  margin: 30px auto;
+  background: #fffdf9;
+  padding: 26px;
+  border-radius: 10px;
+  border-top: 4px solid #d4a373;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.appointment-form h2 {
+  margin-top: 0;
+  color: #7b4f2c;
+}
+
+.step {
+  display: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step.active {
+  display: block;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  color: #4a3f35;
+  font-weight: 600;
+}
+
+select, input[type="date"], textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6dccf;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+select:invalid, input:invalid {
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.step-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #d4a373;
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: #b5894a;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-prev {
+  background: transparent;
+  color: #7b4f2c;
+  border: 1px solid #e6dccf;
+}
+
+.summary {
+  margin-top: 12px;
+  background: #fff8f0;
+  border: 1px dashed #e6dccf;
+  padding: 12px;
+  border-radius: 8px;
+  color: #4a3f35;
+}
+
