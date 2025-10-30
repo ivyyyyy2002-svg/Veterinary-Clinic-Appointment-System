@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinary Clinic Appointment System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -7,21 +9,29 @@
 <body>
     <!--Top Page-->
     <div class="top-content">
-        <div class="logo">
-            <img src="logo.png" alt="Pet Hospital Logo" height="80">
-        </div>
         <ul>
             <li><a href="login.html">Login</a></li>
             <li><a href="appointment.html">Book an Appointment</a></li>
         </ul>
     </div>
 
+    <!-- logo -->
+    <div class="logo">
+        <a href="home.html">
+            <img src="logo.png" alt="Pet Hospital Logo">
+        </a>
+    </div>
+
     <!-- Navigation bar -->
     <div class="navbar">
         <ul>
             <li><a href="home.html">Home</a></li>
-            <li><a href="appointments.html">Appointments</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="team.html">About Us</a></li>
+
+            <div class="search-bar">
+                <li><input type="text" placeholder="Search.."></li>
+            </div>
         </ul>
     </div>
 
@@ -37,7 +47,7 @@
         <div class="hours-location">
             <div class="info">
                 <ul>
-                    <li>123 Pet Stree <br> Animal City, AC 12345</li>
+                    <li>123 Pet Street <br> Animal City, AC 12345</li>
                     <li>Emergencies: (222) 333-4567</li>
                     <li>Call: (123) 456-7890</li>
                     <li>Email: hospital@example.com</li>
@@ -63,5 +73,8 @@
 
     </div>
 
+    <footer>
+        <p>&copy; 2026 UWO Pet Hospital. All rights reserved.</p>
+    </footer>
 
 </body>
