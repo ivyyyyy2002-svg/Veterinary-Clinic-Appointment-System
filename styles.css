@@ -458,7 +458,7 @@ footer {
     margin: 0;
     padding: 0;
     display: flex;
-    width: 40%;
+    width: 60%;
     justify-content: space-around;
 }
 
@@ -482,14 +482,14 @@ footer {
 
 /*--------------------------------------------*/
 /* pet page styles */
-.title-pet {
+.title-client {
     text-align: left;
-    padding: 40px 60px;
+    padding: 30px 60px;
     color: #fff8f0;
     background-color: #d4a373; 
 }
 
-.title-pet h1 {
+.title-client h1 {
     color: white;
     margin-bottom: 10px;
 }
@@ -576,7 +576,6 @@ footer {
 }
 
 /*---------------------------------------------*/
-/* appointment section styles */
 /* Multi-step form styles */
 .appointment-form {
   max-width: 880px;
@@ -669,3 +668,52 @@ textarea {
   color: #4a3f35;
 }
 
+/*---------------------------------------------*/
+/* appointment display section styles */
+.appointment-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.myAppointment h2 {
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.myAppointment{
+    margin-top: 20px;
+}
+
+/*---------------------------------------------*/
+/* client profile page */
+.profile {
+    display: block;
+    margin:auto;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-table {
+    width: 40%;
+    border-collapse: collapse;
+    margin: 10px auto;
+    text-align: left;
+}
+
+.profile-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee2d5;
+}
+
+.profile-table td:first-child {
+    font-weight: bold;
+    color: #7b4f2c;
+    width: 30%;
+}
