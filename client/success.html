@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>action success</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="content">
+        <h3>Your account and pet information have been successfully registered!</h3>
+        <h3>You will be redirected to the home page in <span id="countdown">5</span> seconds...</p>
+        <a href="home.html">Go Now</a>
+    </div>
+
+    <script>
+        // direct to homepage in 5 seconds
+        let timeLeft = 5;
+        const countdown = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+            timeLeft--;
+            countdown.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                window.location.href = "home.html"; 
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

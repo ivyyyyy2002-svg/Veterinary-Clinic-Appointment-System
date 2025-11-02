@@ -35,7 +35,7 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
         // Owner info
         const userName = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
+        const phone = document.getElementById('phoneNumber').value;
         const city = document.getElementById('city').value;
         const province = document.getElementById('province').value;
         const address = document.getElementById('address').value;
@@ -71,8 +71,8 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
 
         // Create user info
         const userInfo = {
-            full_name: userNameVal.value,
-            phone: phoneVal.value,
+            name: userNameVal.value,
+            phoneNumber: phoneVal.value,
             email: emailVal.value,
             address: addressVal.value,
             city: cityVal.value,
@@ -94,11 +94,11 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
         }
 
         const result = await res.json();
-        outputMsg.textContent = result.message + ' Your Owner ID is ' + result.ownerId;
+        //outputMsg.textContent = result.message + ' Your Owner ID is ' + result.ownerID;
 
         // Show pet section
         document.getElementById('petSection').style.display = 'block';
-        document.getElementById('owner_id').value = result.ownerId;
+        document.getElementById('owner_id').value = result.ownerID;
 
     } catch (error) {
         outputMsg.textContent = 'Registration failed: ' + error.message;
@@ -119,16 +119,17 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
         const petType = document.getElementById('pet_type').value;
         const petBreed = document.getElementById('pet_breed').value;
         const petAge = document.getElementById('pet_age').value;
+        const petColor = document.getElementById('pet_color').value;
         const petSex = document.getElementById('pet_sex').value;
         const petAllergy = document.getElementById('pet_allergy').value;
-        const ownerId = document.getElementById('owner_id').value;
+        const ownerID = document.getElementById('owner_id').value;
 
         // Validation
         const petNameVal = textValidate(petName, 100, 'Pet Name');
         const petBreedVal = textValidate(petBreed, 100, 'Pet Breed');
         const petAgeVal = numberValidate(petAge, 0, 100, 'Pet Age');
         const petAllergyVal = textValidate(petAllergy, 200, 'Pet Allergy');
-        const ownerIdVal = numberValidate(ownerId, 1, Infinity, 'Owner ID');
+        const ownerIdVal = numberValidate(ownerID, 1, Infinity, 'Owner ID');
 
         const allErrors = [
             ...petNameVal.errors, ...petBreedVal.errors,
@@ -144,9 +145,10 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
             type: petType,
             breed: petBreedVal.value,
             age: petAgeVal.value,
-            sex: petSex,
-            allergy: petAllergyVal.value,
-            owner_id: ownerIdVal.value
+            color: petColor,
+            gender: petSex,
+            allergies: petAllergyVal.value,
+            ownerID: ownerIdVal.value
         };
 
         const res = await fetch('/api/pets', {
@@ -162,7 +164,10 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
         }
 
         const result = await res.json();
-        outputMsg.textContent = result.message + ' Your Pet ID is ' + result.petId + '. Registration Complete!';
+        //outputMsg.textContent = result.message + ' Your Pet ID is ' + result.petID + '. Registration Complete!';
+        setTimeout(() => {
+            window.location.href = "success.html";
+        }, 500);
 
     } catch (error) {
         outputMsg.textContent = 'Pet Registration failed: ' + error.message;
