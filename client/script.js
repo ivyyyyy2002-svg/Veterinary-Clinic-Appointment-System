@@ -22,6 +22,21 @@ function textValidate(text, maxLen, label = 'Text') {
     }
     return { value, errors };
 }
+//Global Variables
+const BASE_URL = 'http://localhost:3000';
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if user is logged in before booking appointment
+    const bookLink = document.querySelector('a[href="appointment.html"]');
+    bookLink.addEventListener('click', (event) => {
+        const ownerId = localStorage.getItem('owner_id'); 
+        if (!ownerId) {
+        event.preventDefault();
+        alert('Please log in to book an appointment.');
+        window.location.href = 'login.html';
+        }
+    });
+});
 
 // ----------------------
 // Register User
@@ -80,7 +95,6 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
             postalCode: postalCodeVal.value,
             password: passwordVal.value
         };
-
         const res = await fetch('/api/owners/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -98,7 +112,7 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
 
         // Show pet section
         document.getElementById('petSection').style.display = 'block';
-        document.getElementById('owner_id').value = result.ownerID;
+        document.getElementById('owner_id').value = result.ownerId;
 
     } catch (error) {
         outputMsg.textContent = 'Registration failed: ' + error.message;
@@ -150,10 +164,11 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
             allergies: petAllergyVal.value,
             ownerID: ownerIdVal.value
         };
-
         const res = await fetch('/api/pets', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(petInfo)
         });
 
@@ -173,3 +188,5 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
         outputMsg.textContent = 'Pet Registration failed: ' + error.message;
     }
 });
+
+

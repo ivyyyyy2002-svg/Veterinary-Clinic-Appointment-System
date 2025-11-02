@@ -24,7 +24,7 @@
 
             <form id="multiStepForm" novalidate>
             <!-- STEP 1 choose pets and service type -->
-            <fieldset class="step active" data-step="1">
+            <fieldset id="step1PetService" class="step active" data-step="1">
                 <legend>Step 1 — Pet & Service</legend>
 
                 <label for="petSelect">Select your pet</label>
@@ -47,8 +47,9 @@
                 </select>
 
                 <div class="step-actions">
-                <button type="button" class="btn btn-next">Next</button>
+                <button type="submit" class="btn btn-next">Next</button>
                 </div>
+                <output id="step1Result"></output>
             </fieldset>
 
             <!-- STEP 2 choose doctor and apoointment date -->
