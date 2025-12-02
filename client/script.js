@@ -1,9 +1,10 @@
 // Ziqi Liu ECE 9014 Group 8
 // Veterinary Clinic Appointment System - Frontend Script
 
-// ----------------------
-// Simple client-side validation
-// ----------------------
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
 function numberValidate(num, min, max, label = 'Number') {
     const errors = [];
     const value = Number(num);
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in before booking appointment
     const bookLink = document.querySelector('a[href="appointment.html"]');
     bookLink.addEventListener('click', (event) => {
-        const ownerId = localStorage.getItem('owner_id'); 
+        const ownerId = localStorage.getItem('ownerID'); 
         if (!ownerId) {
         event.preventDefault();
         alert('Please log in to book an appointment.');
@@ -37,10 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+<<<<<<< HEAD
+=======
 
-// ----------------------
+>>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
 // Register User
-// ----------------------
 document.getElementById('clientForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const outputMsg = document.getElementById('regisUserResult');
@@ -112,17 +114,15 @@ document.getElementById('clientForm').addEventListener('submit', async (event) =
 
         // Show pet section
         document.getElementById('petSection').style.display = 'block';
-        document.getElementById('owner_id').value = result.ownerId;
+        localStorage.setItem('ownerID', result.ownerID);
 
     } catch (error) {
         outputMsg.textContent = 'Registration failed: ' + error.message;
-        document.getElementById('petSection').style.display = 'block';
+        // document.getElementById('petSection').style.display = 'block';
     }
 });
 
-// ----------------------
 // Register Pet
-// ----------------------
 document.getElementById('petForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const outputMsg = document.getElementById('regisPetResult');
@@ -136,7 +136,8 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
         const petColor = document.getElementById('pet_color').value;
         const petSex = document.getElementById('pet_sex').value;
         const petAllergy = document.getElementById('pet_allergy').value;
-        const ownerID = document.getElementById('owner_id').value;
+        // const ownerID = document.getElementById('owner_id').value;
+        const ownerID = localStorage.getItem('ownerID');
 
         // Validation
         const petNameVal = textValidate(petName, 100, 'Pet Name');
@@ -188,5 +189,38 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
         outputMsg.textContent = 'Pet Registration failed: ' + error.message;
     }
 });
+
+// // Client Login
+// document.addEventListener('DOMContentLoaded',() => {
+//     const loginForm = document.querySelector('#client-login form');
+//     loginForm.addEventListener('submit', async (event) => {
+//     event.preventDefault();
+
+//     const email = document.getElementById('username').value.trim();
+//     const password = document.getElementById('password').value.trim();
+
+//     if (!email || !password) {
+//         alert('Please enter both email and password.');
+//         return;
+//     }
+
+//     try{
+//         const res = await fetch('/api/owners/login', {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/json' },
+//                 body: JSON.stringify({ email, password })
+//             });
+//     });
+//        const data = await res.json();
+//             console.log("Login response:", data);
+
+//             if (!res.ok) {
+//                 alert((data.message || 'Login failed'));
+//                 return;
+//             }
+    
+// }
+
+
 
 
