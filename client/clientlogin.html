@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>client-login</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="JS/clientLogin.js" defer></script>
 </head>
 <body>
     <!--Top Page-->
@@ -41,7 +42,8 @@
         <h1>Client Login</h1>
         <h2>Welcome to myUWO Account</h2>
         <br>
-            <form action="/login" method="post">
+            <!-- <form action="/login" method="post"> -->
+            <form id="login-form" method="post">
                 <label for="username">Log in with your email:</label><br>
                 <input type="text" id="username" name="username" required><br><br>
                 <label for="password">Enter password:</label><br>

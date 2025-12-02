@@ -1,10 +1,10 @@
 // Ziqi Liu ECE 9014 Group 8
 // Veterinary Clinic Appointment System - Frontend Script
 
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
 
->>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
+// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
 function numberValidate(num, min, max, label = 'Number') {
     const errors = [];
     const value = Number(num);
@@ -26,8 +26,8 @@ function textValidate(text, maxLen, label = 'Text') {
 //Global Variables
 const BASE_URL = 'http://localhost:3000';
 
+// Check if user is logged in before booking appointment
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if user is logged in before booking appointment
     const bookLink = document.querySelector('a[href="appointment.html"]');
     bookLink.addEventListener('click', (event) => {
         const ownerId = localStorage.getItem('ownerID'); 
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
 
->>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
+// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
 // Register User
 document.getElementById('clientForm').addEventListener('submit', async (event) => {
     event.preventDefault();
