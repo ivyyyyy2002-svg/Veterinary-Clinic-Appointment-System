@@ -1,10 +1,14 @@
 // Ziqi Liu ECE 9014 Group 8
 // Veterinary Clinic Appointment System - Frontend Script
 
-// <<<<<<< HEAD
-// =======
+// <<<<<<< HEAD:client/JS/script.js
+// // <<<<<<< HEAD
+// // =======
 
-// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
+// // >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
+// // =======
+
+// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9:client/script.js
 function numberValidate(num, min, max, label = 'Number') {
     const errors = [];
     const value = Number(num);
@@ -41,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // <<<<<<< HEAD
 // =======
 
-// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
 // Register User
 document.getElementById('clientForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -221,6 +224,9 @@ document.getElementById('petForm').addEventListener('submit', async (event) => {
     
 // }
 
+// <<<<<<< HEAD:client/JS/script.js
 
 
+// =======
+// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9:client/script.js
 
