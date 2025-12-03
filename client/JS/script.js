@@ -1,34 +1,6 @@
-// Ziqi Liu ECE 9014 Group 8
-// Veterinary Clinic Appointment System - Frontend Script
+// Ziqi Liu ECE 9014 Group 8 - Frontend Script
 
-// <<<<<<< HEAD:client/JS/script.js
-// // <<<<<<< HEAD
-// // =======
-
-// // >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9
-// // =======
-
-// >>>>>>> 74d65bb4adab10abdec25ff3040abf18592e89c9:client/script.js
-function numberValidate(num, min, max, label = 'Number') {
-    const errors = [];
-    const value = Number(num);
-    if (!Number.isInteger(value)) errors.push(`${label} must be an integer`);
-    if (value < min || value > max) errors.push(`${label} must be between ${min} and ${max}`);
-    if (max === Infinity && value < min) errors.push(`${label} must be at least ${min}`);
-    return { value, errors };
-}
-
-function textValidate(text, maxLen, label = 'Text') {
-    const errors = [];
-    let value = String(text).trim();
-    if (value.length > maxLen) {
-        value = value.slice(0, maxLen);
-        errors.push(`${label} exceeds maximum length of ${maxLen}, truncated.`);
-    }
-    return { value, errors };
-}
-//Global Variables
-const BASE_URL = 'http://localhost:3000';
+import {textValidate, numberValidate} from './validateTools/validate.js';
 
 // Check if user is logged in before booking appointment
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-// <<<<<<< HEAD
-// =======
-
 // Register User
 document.getElementById('clientForm').addEventListener('submit', async (event) => {
     event.preventDefault();

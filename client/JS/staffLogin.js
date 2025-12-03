@@ -2,10 +2,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("admin-login-form");
     const messageEl = document.getElementById("login-message");
-    
+
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        // Read input values
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
         messageEl.textContent = "";
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/staff/login`, {
+            const response = await fetch(`http://localhost:5050/api/staff/login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ username, password }),

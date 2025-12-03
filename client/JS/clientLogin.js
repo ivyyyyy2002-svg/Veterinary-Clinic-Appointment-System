@@ -2,10 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("client-login").querySelector("form").addEventListener("submit", async (event) => {
         event.preventDefault();
-
         const emailInput = document.getElementById("username");
         const passwordInput = document.getElementById("password");
-
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
@@ -14,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         try {
-            const res = await fetch("/api/owners/login", {
+            const res = await fetch("http://localhost:5050/api/owners/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })

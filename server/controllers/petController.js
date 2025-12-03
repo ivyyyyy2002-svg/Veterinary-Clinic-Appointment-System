@@ -8,7 +8,7 @@ exports.createPet = async (req, res) => {
     // 1. Destructure 'age' from the request body.
     const { ownerID, name, type, breed, age, color, allergies, gender } = req.body;
     if (!ownerID || !name || !type) {
-        return res.status(400).json({ message: "Owner ID, pet name, and type are required." });
+        return res.status(400).json({ error: "Owner ID, pet name, and type are required." });
     }
     try {
         const sql = 'INSERT INTO Pets (ownerID, name, type, breed, age, color, allergies, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
