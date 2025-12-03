@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const res = await fetch(`/api/owners/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 name,
                 email,
                 phoneNumber,
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 city,
                 province,
                 postalCode,
-            ),
+            })
             });
             const data = await res.json();
             if (!res.ok) return regisUserResult.textContent = data.error;
@@ -74,13 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!ownerId) return regisPetResult.textContent = "Owner ID not found. Please register again.";
         const payload = {
             owner_id: ownerId,
-            name: textValidate(document.getElementById("pet_name").value.trim()),
-            pet_type: textValidate(document.getElementById("pet_type").value.trim()),
-            breed: textValidate(document.getElementById("pet_breed").value.trim()),
-            color: textValidate(document.getElementById("pet_color").value.trim()),
-            age: numberValidate(document.getElementById("pet_age").value),
-            gender: textValidate(document.getElementById("pet_sex").value.trim()),
-            allergies: textValidate(document.getElementById("pet_allergy").value.trim()),
+            name: textValidate(document.getElementById("pet_name").trim()).value,
+            pet_type: textValidate(document.getElementById("pet_type").trim()).value,
+            breed: textValidate(document.getElementById("pet_breed").trim()).value,
+            color: textValidate(document.getElementById("pet_color").trim()).value,
+            age: numberValidate(document.getElementById("pet_age")).value,
+            gender: textValidate(document.getElementById("pet_sex").trim()).value,
+            allergies: textValidate(document.getElementById("pet_allergy").trim()).value,
         };
 
         try {
