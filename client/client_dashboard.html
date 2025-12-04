@@ -102,6 +102,49 @@ async function loadPets() {
     }
 }
 
+// Load appointments
+async function loadAppointments() {
+    const ownerID = localStorage.getItem("ownerID");
+    const container = document.getElementById("appointmentContainer");
+
+    try {
+        const res = await fetch(`http://localhost:5050/api/appointments/owner/${ownerID}`);
+        const appointments = await res.json();
+
+        if (!Array.isArray(appointments) || appointments.length === 0) {
+            container.innerHTML = "<p>No appointments booked yet.</p>";
+            return;
+        }
+
+        container.innerHTML = "";
+
+        appointments.forEach(app => {
+            const card = document.createElement("div");
+            card.className = "appointment-card";
+
+            card.innerHTML = `
+                <h3>${app.pet_name} — ${app.disease_name || "General Checkup"}</h3>
+
+                <div class="appointment-info">
+                    <div class="info-item"><span class="info-label">Date:</span> <span>${app.appointmentDate}</span></div>
+                    <div class="info-item"><span class="info-label">Time:</span> <span>${app.appointmentTime}</span></div>
+                    <div class="info-item"><span class="info-label">Doctor:</span> <span>${app.staff_name || "N/A"}</span></div>
+                    <div class="info-item"><span class="info-label">Status:</span> 
+                        <span class="${app.status.toLowerCase()}">${app.status}</span>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error("Error loading appointments:", err);
+        container.innerHTML = "<p>Failed to load appointments.</p>";
+    }
+}
+
+// Logout setup
 function setupLogout() {
     const logoutBtn = document.getElementById("logoutBtn");
     logoutBtn.addEventListener("click", (event) => {
@@ -116,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
     loadUserName();
     loadPets();
+    loadAppointments();
     setupLogout();
 });
 </script>

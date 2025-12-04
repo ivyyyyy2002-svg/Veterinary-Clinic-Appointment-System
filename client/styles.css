@@ -514,7 +514,7 @@ footer {
     margin-bottom: 20px;
     display: inline-block;
     vertical-align: bottom;
-    margin-left: 1000px;
+    margin-left: 0px;
 }
 
 .myPet button:hover {
@@ -533,12 +533,11 @@ footer {
     background-color: #fffdf9;
     border-radius: 10px;
     padding: 30px;
-    margin: 15px auto;
+    margin: 15px 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-left: 4px solid #d4a373;
     transition: 0.3s;
     width: 40%;
-    margin: 15px 10px;
 }
 
 .pet-card h3{
@@ -687,6 +686,47 @@ textarea {
     margin-top: 20px;
 }
 
+.appointment-card {
+    background-color: #fffdf9;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 15px 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 4px solid #d4a373;
+    transition: 0.3s;
+    width: 40%;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.appointment-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.appointment-info .info-item {
+    margin-bottom: 10px;
+}
+
+.status.booked {
+    color: green;
+    font-weight: bold;
+}
+
+.status.cancelled {
+    color: red;
+    font-weight: bold;
+}
+
+.status.completed {
+    color: blue;
+    font-weight: bold;
+}
+
 /*---------------------------------------------*/
 /* client profile page */
 .profile {
@@ -716,4 +756,13 @@ textarea {
     font-weight: bold;
     color: #7b4f2c;
     width: 30%;
+}
+
+/*---------------------------------------------*/
+/* Multi-step form visibility */
+.step {
+    display: none;
+}
+.step.active {
+    display: block;
 }

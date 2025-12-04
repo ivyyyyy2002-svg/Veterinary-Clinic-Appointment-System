@@ -17,7 +17,7 @@
         </ul>
     </div>
 
-    <!-- appointment form (multi-step) -->
+    <!-- title page -->
     <div class="content">
         <div class="appointment-form" id="appointment_form">
             <h2>Book an Appointment</h2>
@@ -36,29 +36,26 @@
                 <label for="serviceSelect">Service</label>
                 <select id="serviceSelect" name="service" required>
                 <option value="">-- Choose a service --</option>
-                <option value="wellness">General Check-up</option>
-                <option value="vaccination">Vaccination</option>
-                <option value="illness">Illness Consultation</option>
-                <option value="surgery">Surgery</option>
-                <option value="dental">Dental Care</option>
+                <!-- JS will populate service options here -->
                 </select>
 
                 <div class="step-actions">
-                <button type="submit" class="btn btn-next">Next</button>
+                <button type="button" class="btn btn-next">Next</button>
                 </div>
                 <output id="step1Result"></output>
             </fieldset>
 
-            <!-- STEP 2 choose doctor and apoointment date -->
+            <!-- STEP 2 choose vet, date, and time -->
             <fieldset class="step" data-step="2">
                 <legend>Step 2 — Vet, Date & Time</legend>
 
                 <label for="vetSelect">Select veterinarian</label>
                 <select id="vetSelect" name="vet" required>
-                <option value="">-- Choose a veterinarian --</option>
-                <option value="dr_ivy">Dr. Ivy Li</option>
-                <option value="dr_ziqi">Dr. Ziqi Liu</option>
-                <option value="dr_guest">Dr. Guest</option>
+                    <option value="">-- Choose a veterinarian --</option>
+                    <option value="7">Dr. Ivy Li</option>
+                    <option value="8">Dr. Ziqi Liu</option>
+                    <option value="9">Dr. Guest</option>
+
                 </select>
 
                 <label for="dateInput">Appointment date</label>
@@ -103,47 +100,161 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const ownerID = localStorage.getItem("ownerID");
-            if (!ownerID) {
-                alert("Please log in before booking an appointment.");
-                localStorage.setItem("postLoginRedirect", "appointment");
-                window.location.href = "login.html";
+    // login check
+    document.addEventListener("DOMContentLoaded", () => {
+        const ownerID = localStorage.getItem("ownerID");
+        if (!ownerID) {
+            alert("Please log in before booking an appointment.");
+            localStorage.setItem("postLoginRedirect", "appointment");
+            window.location.href = "login.html";
+        }
+    });
+
+    // Load pets and services
+    document.addEventListener("DOMContentLoaded", async () => {
+        const ownerID = localStorage.getItem("ownerID");
+        if (!ownerID) return;
+
+        const petSelect = document.getElementById("petSelect");
+        petSelect.innerHTML = `<option value="">-- Choose a pet --</option>`;
+
+        try {
+            const res = await fetch(`http://localhost:5050/api/pets/owner/${ownerID}`);
+            const pets = await res.json();
+
+            if (!Array.isArray(pets) || pets.length === 0) {
+                petSelect.innerHTML = `<option>No pets found. Register one first.</option>`;
+                return;
             }
+
+            pets.forEach(pet => {
+                const option = document.createElement("option");
+                option.value = pet.petID;
+                option.textContent = `${pet.name} (${pet.type})`;
+                petSelect.appendChild(option);
+            });
+
+        } catch (err) {
+            console.error("Failed to load pets:", err);
+            petSelect.innerHTML = `<option>Error loading pets</option>`;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        const serviceSelect = document.getElementById("serviceSelect");
+
+        try {
+            const res = await fetch("http://localhost:5050/api/diseases");
+            const diseases = await res.json();
+
+            diseases.forEach(d => {
+                const option = document.createElement("option");
+                option.value = d.diseaseID;
+                option.textContent = `${d.category} — ${d.diseaseName}`;
+                serviceSelect.appendChild(option);
+            });
+
+        } catch (err) {
+            console.error("Failed to load diseases:", err);
+            serviceSelect.innerHTML = `<option>Error loading services</option>`;
+        }
+    });
+
+    // Multi-step form navigation
+    document.addEventListener("DOMContentLoaded", () => {
+        const steps = document.querySelectorAll(".step");
+        let currentStep = 0;
+
+        function showStep(i) {
+            steps.forEach((s, idx) => {
+                s.style.display = idx === i ? "block" : "none";
+            });
+        }
+
+        showStep(currentStep);
+
+        document.querySelectorAll(".btn-next").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (currentStep === 0) {
+                    if (!document.getElementById("petSelect").value ||
+                        !document.getElementById("serviceSelect").value) {
+                        alert("Please select a pet and service first.");
+                        return;
+                    }
+                }
+                if (currentStep === 1) {
+                    if (!document.getElementById("dateInput").value ||
+                        !document.getElementById("timeSelect").value) {
+                        alert("Please choose date & time.");
+                        return;
+                    }
+                }
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
         });
 
-        document.addEventListener("DOMContentLoaded", async () => {
-            const ownerID = localStorage.getItem("ownerID");
-            if (!ownerID) return;
+        document.querySelectorAll(".btn-prev").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        });
+    });
 
-            const petSelect = document.getElementById("petSelect");
-            petSelect.innerHTML = `<option value="">-- Choose a pet --</option>`;
+    // Form submission
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("multiStepForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const ownerID = localStorage.getItem("ownerID");
+            const petID = document.getElementById("petSelect").value;
+            const diseaseID = document.getElementById("serviceSelect").value;
+            const staffID = document.getElementById("vetSelect").value;
+            const date = document.getElementById("dateInput").value;
+            const time = document.getElementById("timeSelect").value;
+            const notes = document.getElementById("notes").value;
+
+            const payload = {
+                ownerID,
+                petID,
+                diseaseID,
+                staffID,
+                appointmentDate: date,
+                appointmentTime: time,
+                notes
+            };
 
             try {
-                const res = await fetch(`http://localhost:5050/api/pets/owner/${ownerID}`);
-                const pets = await res.json();
+                const res = await fetch("http://localhost:5050/api/appointments", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(payload)
+                });
 
-                if (!Array.isArray(pets) || pets.length === 0) {
-                    petSelect.innerHTML = `<option>No pets found. Register one first.</option>`;
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert("Failed to create appointment: " + data.message);
                     return;
                 }
 
-                pets.forEach(pet => {
-                    const option = document.createElement("option");
-                    option.value = pet.petID;
-                    option.textContent = `${pet.name} (${pet.type})`;
-                    petSelect.appendChild(option);
-                });
+                alert("Appointment booked successfully!");
+                window.location.href = "client_dashboard.html";
 
             } catch (err) {
-                console.error("Failed to load pets:", err);
-                petSelect.innerHTML = `<option>Error loading pets</option>`;
+                console.error(err);
+                alert("Server error booking appointment");
             }
         });
-    </script>
+    });
 
-    <script src="JS/signout.js"></script>
+</script>
 
-
+<script src="JS/signout.js"></script>
 </body>
 </html>
