@@ -13,7 +13,7 @@
             <li><a href="client_dashboard.html">Overview</a></li>
             <li><a href="client_profile.html">Profile</a></li>
             <li><a href="appointment.html">Book Appointments</a></li>
-            <li><a href="login.html">Sign Out</a></li>
+            <li><a href="#" id="logoutBtn">Sign Out</a></li>
         </ul>
     </div>
 
@@ -29,11 +29,8 @@
 
                 <label for="petSelect">Select your pet</label>
                 <select id="petSelect" name="pet" required>
-                <!-- this is only for testing -->
                 <option value="">-- Choose a pet --</option>
-                <option value="fluffy">Fluffy (Cat)</option>
-                <option value="buddy">Buddy (Dog)</option>
-                <option value="tweety">Tweety (Parrot)</option>
+                <!-- JS will populate pet options here -->
                 </select>
 
                 <label for="serviceSelect">Service</label>
@@ -104,5 +101,49 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ownerID = localStorage.getItem("ownerID");
+            if (!ownerID) {
+                alert("Please log in before booking an appointment.");
+                localStorage.setItem("postLoginRedirect", "appointment");
+                window.location.href = "login.html";
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const ownerID = localStorage.getItem("ownerID");
+            if (!ownerID) return;
+
+            const petSelect = document.getElementById("petSelect");
+            petSelect.innerHTML = `<option value="">-- Choose a pet --</option>`;
+
+            try {
+                const res = await fetch(`http://localhost:5050/api/pets/owner/${ownerID}`);
+                const pets = await res.json();
+
+                if (!Array.isArray(pets) || pets.length === 0) {
+                    petSelect.innerHTML = `<option>No pets found. Register one first.</option>`;
+                    return;
+                }
+
+                pets.forEach(pet => {
+                    const option = document.createElement("option");
+                    option.value = pet.petID;
+                    option.textContent = `${pet.name} (${pet.type})`;
+                    petSelect.appendChild(option);
+                });
+
+            } catch (err) {
+                console.error("Failed to load pets:", err);
+                petSelect.innerHTML = `<option>Error loading pets</option>`;
+            }
+        });
+    </script>
+
+    <script src="JS/signout.js"></script>
+
+
 </body>
 </html>

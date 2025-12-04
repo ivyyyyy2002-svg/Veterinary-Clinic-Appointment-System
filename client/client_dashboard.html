@@ -15,7 +15,7 @@
             <li><a href="client_dashboard.html">Overview</a></li>
             <li><a href="client_profile.html">Profile</a></li>
             <li><a href="appointment.html">Book Appointments</a></li>
-            <li><a href="login.html" id="logoutBtn">Sign Out</a></li>
+            <li><a href="#" id="logoutBtn">Sign Out</a></li>
         </ul>
     </div>
 
@@ -25,12 +25,13 @@
     </div>
 
     <div class="content">
+
         <!-- pet display section -->
         <div class="myPet">
             <h2>My Pets</h2>
             <button class="add-pet" onclick="window.location.href='register_pet.html'">Add a Pet</button>
             <div class="pet-container" id="petContainer">
-                <!-- JS-generated content -->
+                <!-- JS-generated pet cards -->
             </div>
         </div>
 
@@ -38,32 +39,34 @@
         <div class="myAppointment">
             <h2>My Appointments</h2>
             <div class="appointment-container" id="appointmentContainer">
-                <!-- JS-generated content -->
+                <!-- future JS appointment data -->
             </div>
         </div>
+
     </div>
 
 </body>
 
+
 <script>
-// Load user's name from localStorage
-function loadUserName() {
-    const name = localStorage.getItem("ownerName");
-    const title = document.getElementById("welcomeTitle");
-    if (name) {
-        title.textContent = `Welcome, ${name}`;
+// login check
+function checkLogin() {
+    const ownerID = localStorage.getItem("ownerID");
+    if (!ownerID) {
+        alert("Please log in first.");
+        window.location.href = "login.html";
     }
 }
 
-// Load pets from backend
+function loadUserName() {
+    const name = localStorage.getItem("ownerName");
+    const title = document.getElementById("welcomeTitle");
+    if (name) title.textContent = `Welcome, ${name}`;
+}
+
 async function loadPets() {
     const ownerID = localStorage.getItem("ownerID");
     const petContainer = document.getElementById("petContainer");
-
-    if (!ownerID) {
-        petContainer.innerHTML = "<p>Error: No owner ID found. Please log in again.</p>";
-        return;
-    }
 
     try {
         const res = await fetch(`http://localhost:5050/api/pets/owner/${ownerID}`);
@@ -74,8 +77,7 @@ async function loadPets() {
             return;
         }
 
-        petContainer.innerHTML = ""; // Clear old test data
-
+        petContainer.innerHTML = "";
         pets.forEach(pet => {
             const petCard = document.createElement("div");
             petCard.className = "pet-card";
@@ -94,24 +96,27 @@ async function loadPets() {
 
             petContainer.appendChild(petCard);
         });
-
     } catch (err) {
         console.error("Error loading pets:", err);
         petContainer.innerHTML = "<p>Failed to load pets.</p>";
     }
 }
 
-// Logout clears storage
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("ownerID");
-    localStorage.removeItem("ownerName");
-    localStorage.removeItem("authToken");
-});
+function setupLogout() {
+    const logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        localStorage.clear();
+        alert("You have been signed out.");
+        window.location.href = "home.html";
+    });
+}
 
-// Initialize dashboard
 document.addEventListener("DOMContentLoaded", () => {
+    checkLogin();
     loadUserName();
     loadPets();
+    setupLogout();
 });
 </script>
 

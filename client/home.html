@@ -74,4 +74,29 @@
     <footer>
         <p>&copy; 2026 UWO Pet Hospital. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bookLink = document.querySelector('a[href="appointment.html"]');
+            if (!bookLink) return;
+
+            bookLink.addEventListener("click", (event) => {
+                const ownerID = localStorage.getItem("ownerID");
+
+                // If not logged in
+                if (!ownerID) {
+                    event.preventDefault(); // Prevent direct navigation to appointment.html
+                    alert("Please log in before booking an appointment.");
+
+                    // Inform the login page: after login, go to appointment.html
+                    localStorage.setItem("postLoginRedirect", "appointment");
+
+                    // Redirect to login page
+                    window.location.href = "login.html";
+                }
+                // If already logged in, do nothing and proceed to appointment.html
+            });
+        });
+    </script>
 </body>
+</html>

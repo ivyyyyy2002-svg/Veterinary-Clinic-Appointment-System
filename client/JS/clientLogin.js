@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("client-login").querySelector("form").addEventListener("submit", async (event) => {
         event.preventDefault();
+
         const emailInput = document.getElementById("username");
         const passwordInput = document.getElementById("password");
         const email = emailInput.value.trim();
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Please enter both email and password.");
             return;
         }
+
         try {
             const res = await fetch("http://localhost:5050/api/owners/login", {
                 method: "POST",
@@ -32,7 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("authToken", data.token);
 
             alert("Login successful.");
-            window.location.href = "client_dashboard.html";
+
+            // If user clicked Book Appointment before login → redirect back
+            const redirectFlag = localStorage.getItem("postLoginRedirect");
+
+            if (redirectFlag === "appointment") {
+                localStorage.removeItem("postLoginRedirect"); // clear flag
+                window.location.href = "appointment.html";
+            } else {
+                // Normal login → go to dashboard
+                window.location.href = "client_dashboard.html";
+            }
 
         } catch (err) {
             console.error("Login error:", err);
