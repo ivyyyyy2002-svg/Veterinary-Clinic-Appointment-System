@@ -27,40 +27,134 @@
             <div class="profile-container">
                 <h2>Client Profile</h2>
                 <table class="profile-table">
-                    <tr>
-                        <td><strong>Full Name</strong></td>
-                        <td>Ivy Li</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Address</strong></td>
-                        <td>123 Pet Street</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Email Address</strong></td>
-                        <td>ivyli@email.com</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Phone Number</strong></td>
-                        <td>(123) 456-7890</td>
-                    </tr>
-                    <tr>
-                        <td><strong>City</strong></td>
-                        <td>London</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Province</strong></td>
-                        <td>Ontario</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Postal Code</strong></td>
-                        <td>N6A 3K7</td>
-                    </tr>
+                    <tr><td><strong>Full Name</strong></td><td id="profileName"></td></tr>
+                    <tr><td><strong>Address</strong></td><td id="profileAddress"></td></tr>
+                    <tr><td><strong>Email Address</strong></td><td id="profileEmail"></td></tr>
+                    <tr><td><strong>Phone Number</strong></td><td id="profilePhone"></td></tr>
+                    <tr><td><strong>City</strong></td><td id="profileCity"></td></tr>
+                    <tr><td><strong>Province</strong></td><td id="profileProvince"></td></tr>
+                    <tr><td><strong>Postal Code</strong></td><td id="profilePostal"></td></tr>
                 </table>
+
                 <div class="button-group">
                     <button type="button" id="editBtn" class="btn">Update</button>
                 </div>
+
+                <div id="editSection" style="display:none; margin-top:20px;">
+                    <h3>Edit Profile</h3>
+
+                    <table class="profile-table">
+                        <tr>
+                            <td><strong>Full Name</strong></td>
+                            <td><input id="editName" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address</strong></td>
+                            <td><input id="editAddress" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email Address</strong></td>
+                            <td><input id="editEmail" type="email"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone Number</strong></td>
+                            <td><input id="editPhone" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>City</strong></td>
+                            <td><input id="editCity" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Province</strong></td>
+                            <td><input id="editProvince" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Postal Code</strong></td>
+                            <td><input id="editPostal" type="text"></td>
+                        </tr>
+                    </table>
+
+                    <button id="saveBtn" class="btn">Save</button>
+                </div>
+
             </div>
         </div>
     </div>
+
+<script>
+let currentOwnerData = null;
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const ownerID = localStorage.getItem("ownerID");
+    if (!ownerID) {
+        alert("Please log in first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const res = await fetch(`http://localhost:5050/api/owners/${ownerID}`);
+    const data = await res.json();
+    currentOwnerData = data;
+
+    // Populate profile fields
+    document.getElementById("profileName").textContent = data.name || "";
+    document.getElementById("profileAddress").textContent = data.address || "";
+    document.getElementById("profileEmail").textContent = data.email || "";
+    document.getElementById("profilePhone").textContent = data.phoneNumber || "";
+    document.getElementById("profileCity").textContent = data.city || "";
+    document.getElementById("profileProvince").textContent = data.province || "";
+    document.getElementById("profilePostal").textContent = data.postalCode || "";
+
+    document.querySelector(".title-client h1").textContent = `Welcome, ${data.name}`;
+});
+
+// Edit button handler
+document.getElementById("editBtn").addEventListener("click", () => {
+    if (!currentOwnerData) return;
+
+    document.getElementById("editSection").style.display = "block";
+
+    document.getElementById("editName").value = currentOwnerData.name;
+    document.getElementById("editAddress").value = currentOwnerData.address;
+    document.getElementById("editEmail").value = currentOwnerData.email;
+    document.getElementById("editPhone").value = currentOwnerData.phoneNumber;
+    document.getElementById("editCity").value = currentOwnerData.city;
+    document.getElementById("editProvince").value = currentOwnerData.province;
+    document.getElementById("editPostal").value = currentOwnerData.postalCode;
+});
+
+// Save button handler
+document.getElementById("saveBtn").addEventListener("click", async () => {
+    const ownerID = localStorage.getItem("ownerID");
+
+    const updated = {
+        name: document.getElementById("editName").value.trim(),
+        address: document.getElementById("editAddress").value.trim(),
+        email: document.getElementById("editEmail").value.trim(),
+        phoneNumber: document.getElementById("editPhone").value.trim(),
+        city: document.getElementById("editCity").value.trim(),
+        province: document.getElementById("editProvince").value.trim(),
+        postalCode: document.getElementById("editPostal").value.trim()
+    };
+
+    const res = await fetch(`http://localhost:5050/api/owners/${ownerID}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+        alert("Profile updated successfully.");
+        location.reload();
+    } else {
+        alert("Update failed: " + data.message);
+    }
+});
+</script>
+
+<script src="JS/signout.js"></script>
+
 </body>
 </html>
