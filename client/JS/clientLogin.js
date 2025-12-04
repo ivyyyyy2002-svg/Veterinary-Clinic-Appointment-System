@@ -1,4 +1,4 @@
-// Ziqi Liu 251532729 ECE 9014 Group 8 Project - Client Login Script
+// Ivy Li, Ziqi Liu 251532729 ECE 9014 Group 8 Project - Client Login Script
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("client-login").querySelector("form").addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -26,15 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Store ownerID and token in localStorage
-            if (data.ownerID) {
-                localStorage.setItem("ownerID", data.ownerID);
-            }
-            if (data.token) {
-                localStorage.setItem("authToken", data.token);
-            }
+            // Store owner info
+            localStorage.setItem("ownerID", data.ownerID);
+            localStorage.setItem("ownerName", data.name);
+            localStorage.setItem("authToken", data.token);
+
             alert("Login successful.");
-            // Redirect after login
             window.location.href = "client_dashboard.html";
 
         } catch (err) {

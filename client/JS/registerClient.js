@@ -1,5 +1,12 @@
 // Ziqi Liu 251532729 ECE 9014 Group 8 Project - Client Registration Script
-import {textValidate, numberValidate} from './validateTools/validate.js';
+import { textValidate, numberValidate } from '../validateTools/validate.js';
+
+// show message helper function
+function showMessage(element, message, color = "green") {
+    element.textContent = message;
+    element.style.color = color;
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clientForm").addEventListener("submit", async (event) => {
@@ -55,8 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem('ownerID', data.ownerID);
             showMessage(regisUserResult, "Account created successfully!", "green");
             // Switch to pet form
-            clientSection.style.display = "none";
-            petSection.style.display = "block";
+            document.getElementById("clientSection").style.display = "none";
+            document.getElementById("petSection").style.display = "block";
+            const petSection = document.getElementById("petSection");
             petSection.scrollIntoView({ behavior: "smooth" });
         } catch (err) {
             console.error("Registration error:", err);
@@ -73,15 +81,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const ownerId = localStorage.getItem('ownerID');
         if (!ownerId) return regisPetResult.textContent = "Owner ID not found. Please register again.";
         const payload = {
-            owner_id: ownerId,
-            name: textValidate(document.getElementById("pet_name").trim()).value,
-            pet_type: textValidate(document.getElementById("pet_type").trim()).value,
-            breed: textValidate(document.getElementById("pet_breed").trim()).value,
-            color: textValidate(document.getElementById("pet_color").trim()).value,
-            age: numberValidate(document.getElementById("pet_age")).value,
-            gender: textValidate(document.getElementById("pet_sex").trim()).value,
-            allergies: textValidate(document.getElementById("pet_allergy").trim()).value,
+            ownerID: ownerId,  
+            name: textValidate(document.getElementById("pet_name").value.trim(), 100, "Pet Name").value,
+            type: document.getElementById("pet_type").value.trim(),   
+            breed: textValidate(document.getElementById("pet_breed").value.trim(), 100, "Pet Breed").value,
+            color: textValidate(document.getElementById("pet_color").value.trim(), 50, "Pet Color").value,
+            age: numberValidate(document.getElementById("pet_age").value, 0, 100, "Pet Age").value,
+            gender: textValidate(document.getElementById("pet_sex").value.trim(), 10, "Pet Sex").value,
+            allergies: textValidate(document.getElementById("pet_allergy").value.trim(), 200, "Allergies").value,
         };
+
 
         try {
             const res = await fetch(`/api/pets`, {
@@ -97,8 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             regisPetResult.textContent = data.message;
 
-            // Optional redirect
-            // setTimeout(() => window.location.href = "login.html", 1500);
+            setTimeout(() => {
+                window.location.href = "success.html";
+            }, 500);
         } catch (err) {
             console.error("Pet registration error:", err);
             regisPetResult.textContent = 'Server errors: ' + err.message;

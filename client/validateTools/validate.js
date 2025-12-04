@@ -17,3 +17,5 @@ function textValidate(text, maxLen, label = 'Text') {
     }
     return { value, errors };
 }
+
+export { numberValidate, textValidate };
