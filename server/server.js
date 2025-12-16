@@ -6,9 +6,11 @@ const pool = require('./config/db');
 // Import routes
 const ownerRoutes = require('./routes/ownerRoutes');
 const petRoutes = require('./routes/petRoutes');
-const staffRoutes = require('./routes/staffRoutes');
+// const staffRoutes = require('./routes/staffRoutes');
+const authRoutes = require('./routes/authRoutes');
 const diseaseRoutes = require('./routes/diseaseRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
+const adminOwnerRoutes = require('./routes/adminOwnerRoutes');
 
 const path = require('path');
 const app = express();
@@ -31,9 +33,12 @@ app.use(express.static(clientPath));
 // API Routes
 app.use('/api/owners', ownerRoutes);
 app.use('/api/pets', petRoutes);
-app.use('/api/staff', staffRoutes);
+// app.use('/api/staff', staffRoutes);
+app.use('/api/admins', authRoutes);
 app.use('/api/diseases', diseaseRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/admins/owners', adminOwnerRoutes);
+
 
 app.get('/', (req, res) => {
   const homePath = path.join(clientPath, 'home.html');

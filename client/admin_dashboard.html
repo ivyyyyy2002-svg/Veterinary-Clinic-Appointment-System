@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_dashboard</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="JS/adminDashboard.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Navigation bar -->
+    <div class="navbar-dashboard">
+        <ul>
+            <li><a href="admin_dashboard.html">Overview</a></li>
+            <li><a href="#" id="logoutBtn">Sign Out</a></li>
+        </ul>
+    </div>
+
+    <!-- title -->
+    <div class="title-client">
+        <h1 id="welcomeTitle">Admin Dashboard</h1>
+    </div>
+
+    <div class="content">
+
+        <!-- appointments table -->
+        <div class="admin-section">
+            <h2>All Client Appointments</h2>
+
+            <table class="admin-table" id="appointmentTable">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Pet Name</th>
+                        <th>Disease</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
