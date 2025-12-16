@@ -107,3 +107,36 @@ exports.deleteAppointment = async (req, res) => {
         });
     }
 };
+
+// GET /api/appointments
+// Admin: view all appointments
+exports.getAllAppointments = async (req, res) => {
+    try {
+        const sql = `
+            SELECT
+                a.appointmentID,
+                o.name AS owner_name,
+                p.name AS pet_name,
+                d.diseaseName AS disease_name,
+                a.appointmentDate,
+                a.appointmentTime,
+                s.name AS staff_name,
+                a.status
+            FROM Appointments a
+            JOIN Owners o ON a.ownerID = o.ownerID
+            JOIN Pets p ON a.petID = p.petID
+            LEFT JOIN Staff s ON a.staffID = s.staffID
+            LEFT JOIN Diseases d ON a.diseaseID = d.diseaseID
+            ORDER BY a.appointmentDate DESC, a.appointmentTime DESC
+        `;
+
+        const [appointments] = await db.query(sql);
+        res.status(200).json(appointments);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Error fetching all appointments",
+            error: error.message
+        });
+    }
+};

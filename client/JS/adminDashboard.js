@@ -9,7 +9,7 @@
 //     }
 // }
 
-// Load admin name //    
+// Load admin name   
 function loadAdminName() {
     const name = localStorage.getItem("adminName");
     const title = document.getElementById("welcomeTitle");
@@ -18,7 +18,7 @@ function loadAdminName() {
     }
 }
 
-// Load all owners //
+// Load all owners
 async function loadAllOwners() {
     const tableBody = document.querySelector("#ownerTable tbody");
 
@@ -59,7 +59,7 @@ async function loadAllOwners() {
     }
 }
 
-// Delete owner //
+// Delete owner
 async function deleteOwner(ownerID) {
     if (!confirm("Are you sure you want to delete this owner?")) return;
 
@@ -87,19 +87,17 @@ async function deleteOwner(ownerID) {
 
 
 
-// Load all appointments //
+// Load all appointments
 async function loadAllAppointments() {
     const tableBody = document.querySelector("#appointmentTable tbody");
 
     try {
-        const res = await fetch("http://localhost:5050/api/appointments");
+        const res = await fetch("http://localhost:5050/api/appointments")
         const appointments = await res.json();
 
         if (!Array.isArray(appointments) || appointments.length === 0) {
             tableBody.innerHTML = `
-                <tr>
-                    <td colspan="7">No appointment data available.</td>
-                </tr>
+                <tr><td colspan="7">No appointment data available.</td></tr>
             `;
             return;
         }
@@ -117,6 +115,11 @@ async function loadAllAppointments() {
                 <td>${app.appointmentTime}</td>
                 <td>${app.staff_name || "N/A"}</td>
                 <td class="${app.status.toLowerCase()}">${app.status}</td>
+                <td>
+                    <button onclick="cancelAppointment(${app.appointmentID})">
+                        Cancel
+                    </button>
+                </td>
             `;
 
             tableBody.appendChild(row);
@@ -132,7 +135,34 @@ async function loadAllAppointments() {
     }
 }
 
-// Logout //
+// Cancel appointment
+async function cancelAppointment(appointmentID) {
+    if (!confirm("Cancel this appointment?")) return;
+
+    try {
+        const res = await fetch(
+            `http://localhost:5050/api/appointments/${appointmentID}`,
+            { method: "DELETE" }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Cancel failed");
+            return;
+        }
+
+        alert("Appointment cancelled");
+        loadAllAppointments();
+
+    } catch (err) {
+        console.error(err);
+        alert("Error cancelling appointment");
+    }
+}
+
+
+// Logout
 function setupLogout() {
     const logoutBtn = document.getElementById("logoutBtn");
     logoutBtn.addEventListener("click", (event) => {
@@ -143,9 +173,9 @@ function setupLogout() {
     });
 }
 
-// Initial //
+// Initial
 document.addEventListener("DOMContentLoaded", () => {
-    checkAdminLogin();
+    // checkAdminLogin();
     loadAdminName();
     loadAllAppointments();
     loadAllOwners();
