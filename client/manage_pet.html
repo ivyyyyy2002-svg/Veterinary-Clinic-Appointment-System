@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Pet</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="navbar-dashboard">
+        <ul>
+            <li><a href="client_dashboard.html">Overview</a></li>
+            <li><a href="client_profile.html">Profile</a></li>
+            <li><a href="appointment.html">Book Appointments</a></li>
+            <li><a href="#" id="logoutBtn">Sign Out</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            <h2 id="formTitle">Add a Pet</h2>
+            <form id="petForm">
+                <label for="name">Pet Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="type">Species</label>
+                <select id="type" name="type" required>
+                    <option value="">-- Select Species --</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="breed">Breed</label>
+                <input type="text" id="breed" name="breed">
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="0">
+
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="">-- Select Gender --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <label for="color">Color</label>
+                <input type="text" id="color" name="color">
+
+                <label for="allergies">Allergies</label>
+                <textarea id="allergies" name="allergies" rows="3"></textarea>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit" id="submitBtn">Add Pet</button>
+                    <button type="button" class="btn-cancel" onclick="window.location.href='client_dashboard.html'">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Login check
+        document.addEventListener("DOMContentLoaded", () => {
+            const ownerID = localStorage.getItem("ownerID");
+            if (!ownerID) {
+                alert("Please log in first.");
+                window.location.href = "login.html";
+            }
+        });
+
+        // Get petID from URL (if editing)
+        const urlParams = new URLSearchParams(window.location.search);
+        const petID = urlParams.get('petID');
+        const isEditing = !!petID;
+
+        // Update UI based on mode
+        if (isEditing) {
+            document.getElementById("formTitle").textContent = "Edit Pet";
+            document.getElementById("submitBtn").textContent = "Update Pet";
+            loadPetData();
+        }
+
+        // Load pet data for editing
+        async function loadPetData() {
+            try {
+                const ownerID = localStorage.getItem("ownerID");
+                const res = await fetch(`http://localhost:5050/api/pets/owner/${ownerID}`);
+                const pets = await res.json();
+
+                const pet = pets.find(p => p.petID == petID);
+
+                if (!pet) {
+                    alert("Pet not found");
+                    window.location.href = "client_dashboard.html";
+                    return;
+                }
+
+                document.getElementById("name").value = pet.name || "";
+                document.getElementById("type").value = pet.type || "";
+                document.getElementById("breed").value = pet.breed || "";
+                document.getElementById("age").value = pet.age || "";
+                document.getElementById("gender").value = pet.gender || "";
+                document.getElementById("color").value = pet.color || "";
+                document.getElementById("allergies").value = pet.allergies || "";
+
+            } catch (err) {
+                console.error("Error loading pet data:", err);
+                alert("Failed to load pet data");
+            }
+        }
+
+        // Handle form submission
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("petForm").addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const ownerID = localStorage.getItem("ownerID");
+
+                const payload = {
+                    ownerID: ownerID,
+                    name: document.getElementById("name").value,
+                    type: document.getElementById("type").value,
+                    breed: document.getElementById("breed").value,
+                    age: document.getElementById("age").value,
+                    gender: document.getElementById("gender").value,
+                    color: document.getElementById("color").value,
+                    allergies: document.getElementById("allergies").value
+                };
+
+                try {
+                    let res;
+                    if (isEditing) {
+                        // Update existing pet
+                        res = await fetch(`http://localhost:5050/api/pets/${petID}`, {
+                            method: "PUT",
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify(payload)
+                        });
+                    } else {
+                        // Create new pet
+                        res = await fetch("http://localhost:5050/api/pets", {
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify(payload)
+                        });
+                    }
+
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        alert(`Failed to ${isEditing ? 'update' : 'add'} pet: ` + data.message);
+                        return;
+                    }
+
+                    alert(`Pet ${isEditing ? 'updated' : 'added'} successfully!`);
+                    window.location.href = "client_dashboard.html";
+
+                } catch (err) {
+                    console.error("Error saving pet:", err);
+                    alert("Server error saving pet");
+                }
+            });
+        });
+
+        // Logout
+        document.addEventListener("DOMContentLoaded", () => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            logoutBtn.addEventListener("click", (event) => {
+                event.preventDefault();
+                localStorage.clear();
+                alert("You have been signed out.");
+                window.location.href = "home.html";
+            });
+        });
+    </script>
+</body>
+</html>

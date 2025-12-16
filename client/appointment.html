@@ -49,15 +49,19 @@
             <fieldset class="step" data-step="2">
                 <legend>Step 2 — Vet, Date & Time</legend>
 
-                <label for="vetSelect">Select veterinarian</label>
+                <!-- <label for="vetSelect">Select veterinarian</label>
                 <select id="vetSelect" name="vet" required>
                     <option value="">-- Choose a veterinarian --</option>
                     <option value="7">Dr. Ivy Li</option>
                     <option value="8">Dr. Ziqi Liu</option>
                     <option value="9">Dr. Guest</option>
 
+                </select> -->
+                <label for="vetSelect">Select veterinarian</label>
+                <select id="vetSelect" name="vet" required>
+                <option value="">-- Choose a veterinarian --</option>
+   
                 </select>
-
                 <label for="dateInput">Appointment date</label>
                 <input id="dateInput" name="date" type="date" required>
 
@@ -252,7 +256,28 @@
             }
         });
     });
+    // Load staff (veterinarians only)
+    document.addEventListener("DOMContentLoaded", async () => {
+        const vetSelect = document.getElementById("vetSelect");
 
+        try {
+            const res = await fetch("http://localhost:5050/api/staff");
+            const staff = await res.json();
+
+            staff.forEach(s => {
+                if (s.position && s.position.toLowerCase().includes('veterinarian')) {
+                    const option = document.createElement("option");
+                    option.value = s.staffID;
+                    option.textContent = `${s.name}${s.position ? ' - ' + s.position : ''}${s.specialty ? ' (' + s.specialty + ')' : ''}`;
+                    vetSelect.appendChild(option);
+                }
+            });
+
+        } catch (err) {
+            console.error("Failed to load staff:", err);
+            vetSelect.innerHTML = `<option>Error loading veterinarians</option>`;
+        }
+    });
 </script>
 
 <script src="JS/signout.js"></script>

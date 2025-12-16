@@ -29,7 +29,8 @@
         <!-- pet display section -->
         <div class="myPet">
             <h2>My Pets</h2>
-            <button class="add-pet" onclick="window.location.href='register_pet.html'">Add a Pet</button>
+            <button class="add-pet" onclick="window.location.href='manage_pet.html'">Add a Pet</button>
+            
             <div class="pet-container" id="petContainer">
                 <!-- JS-generated pet cards -->
             </div>
@@ -92,7 +93,11 @@ async function loadPets() {
                     <div class="info-item"><span class="info-label">Gender:</span> <span>${pet.gender}</span></div>
                     <div class="info-item"><span class="info-label">Allergies:</span> <span>${pet.allergies}</span></div>
                 </div>
-            `;
+                <div class="pet-actions">
+                    <button class="edit-pet-btn" onclick="editPet(${pet.petID})">Edit</button>
+                    <button class="delete-pet-btn" onclick="deletePet(${pet.petID}, '${pet.name}')">Delete</button>
+                </div>
+                `;
 
             petContainer.appendChild(petCard);
         });
@@ -101,7 +106,34 @@ async function loadPets() {
         petContainer.innerHTML = "<p>Failed to load pets.</p>";
     }
 }
+function editPet(petID) {
+    window.location.href = `manage_pet.html?petID=${petID}`;
+}
+async function deletePet(petID, petName) {
+    if (!confirm(`Are you sure you want to delete ${petName}?`)) {
+        return;
+    }
 
+    try {
+        const res = await fetch(`http://localhost:5050/api/pets/${petID}`, {
+            method: "DELETE"
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert("Failed to delete pet: " + data.message);
+            return;
+        }
+
+        alert(`${petName} deleted successfully.`);
+        loadPets();
+
+    } catch (err) {
+        console.error("Error deleting pet:", err);
+        alert("Server error deleting pet");
+    }
+}
 // Load appointments
 async function loadAppointments() {
     const ownerID = localStorage.getItem("ownerID");
