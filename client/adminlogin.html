@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>staff-login</title>
+    <title>admin-login</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="staffLogin.js"></script>
+    <script src="JS/adminLogin.js" defer></script>
 </head>
+
 <body>
     <!--Top Page-->
     <div class="top-content">
@@ -38,14 +39,17 @@
 
     <div class="content">
         <div class="login-form" id="admin-login">
-        <h1>Admin Login</h1>
-        <h2>Welcome to myUWO Account</h2>
-        <br>
-            <form id="admin-login-form" action="/login" method="post">
-                <label for="username">Log in with your email:</label><br>
-                <input type="text" id="username" name="username" required><br><br>
-                <label for="password">Enter password:</label><br>
-                <input type="password" id="password" name="password" required><br><br>
+            <h1>Admin Login</h1>
+            <h2>Welcome to myUWO Account</h2>
+            <br>
+
+            <form id="admin-login-form">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" required><br><br>
+
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" required><br><br>
+
                 <input type="submit" value="Log In">
                 <p id="login-message"></p>
             </form>
